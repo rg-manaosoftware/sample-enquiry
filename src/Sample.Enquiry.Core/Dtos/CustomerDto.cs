@@ -9,10 +9,10 @@ namespace Sample.Enquiry.Core.Dtos
     {
         private List<TransactionDto> _transactions = new List<TransactionDto>();
 
-        public int Id { get; set; }
+        public ulong Id { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
-        public int MobileNumber { get; set; }
+        public ulong MobileNumber { get; set; }
         public List<TransactionDto> Transactions
         {
             get

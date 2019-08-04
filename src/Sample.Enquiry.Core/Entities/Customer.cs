@@ -13,7 +13,7 @@ namespace Sample.Enquiry.Core.Entities
 
         public string Name { get; set; }
         public string Email { get; set; }
-        public int MobileNumber { get; set; }
+        public ulong MobileNumber { get; set; }
         public IEnumerable<Transaction> Transactions => new Collection<Transaction>(_transactions);
 
         public void AddEntry(Transaction transaction)

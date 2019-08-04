@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace Sample.Enquiry.Api.Api
+namespace Sample.Enquiry.Api
 {
     public class MetaController : BaseApiController
     {

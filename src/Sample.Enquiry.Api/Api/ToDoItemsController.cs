@@ -27,7 +27,7 @@ namespace Sample.Enquiry.Api.Api
 
         // GET: api/ToDoItems
         [HttpGet("{id:int}")]
-        public IActionResult GetById(int id)
+        public IActionResult GetById(ulong id)
         {
             var item = ToDoItemDTO.FromToDoItem(_repository.GetById<ToDoItem>(id));
             return Ok(item);
@@ -47,7 +47,7 @@ namespace Sample.Enquiry.Api.Api
         }
 
         [HttpPatch("{id:int}/complete")]
-        public IActionResult Complete(int id)
+        public IActionResult Complete(ulong id)
         {
             var toDoItem = _repository.GetById<ToDoItem>(id);
             toDoItem.MarkComplete();

@@ -6,7 +6,7 @@ namespace Sample.Enquiry.Tests
     {
         private ToDoItem _todo = new ToDoItem();
 
-        public ToDoItemBuilder Id(int id)
+        public ToDoItemBuilder Id(ulong id)
         {
             _todo.Id = id;
             return this;

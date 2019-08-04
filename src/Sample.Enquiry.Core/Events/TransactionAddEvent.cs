@@ -5,13 +5,13 @@ namespace Sample.Enquiry.Core.Events
 {
 public class TransactionAddedEvent : BaseDomainEvent
     {
-        public TransactionAddedEvent(int customerId, Transaction transaction)
+        public TransactionAddedEvent(ulong customerId, Transaction transaction)
         {
             CustomerId = customerId;
             Transaction = transaction;
         }
 
-        public int CustomerId { get; }
+        public ulong CustomerId { get; }
         public Transaction Transaction { get; }
     }
 }

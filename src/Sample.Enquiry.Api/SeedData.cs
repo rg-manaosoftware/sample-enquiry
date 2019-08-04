@@ -24,6 +24,34 @@ namespace Sample.Enquiry.Api
                 Description = "Test Description Two"
             });
             dbContext.SaveChanges();
+            //customer
+            var customers = dbContext.Customers;
+            foreach (var customer in customers)
+            {
+                dbContext.Remove(customer);
+                dbContext.SaveChanges();
+                dbContext.Customers.Add(new Customer()
+                {
+                    Id = 123456,
+                    Name = "Customer without transaction",
+                    Email = "user1@domain.com",
+                    MobileNumber = 1234567890
+                });
+                dbContext.Customers.Add(new Customer()
+                {
+                    Id = 234567,
+                    Name = "Customer with 1 transaction",
+                    Email = "user2@domain.com",
+                    MobileNumber = 2345678901
+                });
+                dbContext.Customers.Add(new Customer()
+                {
+                    Id = 345678,
+                    Name = "Customer with 2 transactions",
+                    Email = "user3@domain.com",
+                    MobileNumber = 3456789012
+                });
+            }
         }
 
     }

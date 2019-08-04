@@ -6,7 +6,7 @@ namespace Sample.Enquiry.Tests
     {
         private Customer _customer = new Customer();
 
-        public CustomerBuilder Id(int id)
+        public CustomerBuilder Id(ulong id)
         {
             _customer.Id = id;
             return this;
@@ -24,7 +24,7 @@ namespace Sample.Enquiry.Tests
             return this;
         }
 
-        public CustomerBuilder MobileNumber(int mobileNumber)
+        public CustomerBuilder MobileNumber(ulong mobileNumber)
         {
             _customer.MobileNumber = mobileNumber;
             return this;
