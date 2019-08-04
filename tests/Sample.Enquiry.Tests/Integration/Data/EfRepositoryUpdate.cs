@@ -9,34 +9,34 @@ namespace Sample.Enquiry.Tests.Integration.Data
     public class EfRepositoryUpdate : BaseEfRepoTestFixture
     {
         [Fact]
-        public void UpdatesItemAfterAddingIt()
+        public void UpdatesCustomerAfterAddingIt()
         {
-            // add an item
+            // add an Customer
             var repository = GetRepository();
             var initialTitle = Guid.NewGuid().ToString();
-            var item = new ToDoItemBuilder().Title(initialTitle).Build();
+            var Customer = new CustomerBuilder().Name(initialTitle).Build();
 
-            repository.Add(item);
+            repository.Add(Customer);
 
-            // detach the item so we get a different instance
-            _dbContext.Entry(item).State = EntityState.Detached;
+            // detach the Customer so we get a different instance
+            _dbContext.Entry(Customer).State = EntityState.Detached;
 
-            // fetch the item and update its title
-            var newItem = repository.List<ToDoItem>()
-                .FirstOrDefault(i => i.Title == initialTitle);
-            Assert.NotNull(newItem);
-            Assert.NotSame(item, newItem);
-            var newTitle = Guid.NewGuid().ToString();
-            newItem.Title = newTitle;
+            // fetch the Customer and update its title
+            var newCustomer = repository.List<Customer>()
+                .FirstOrDefault(i => i.Name == initialTitle);
+            Assert.NotNull(newCustomer);
+            Assert.NotSame(Customer, newCustomer);
+            var newName = Guid.NewGuid().ToString();
+            newCustomer.Name = newName;
 
-            // Update the item
-            repository.Update(newItem);
-            var updatedItem = repository.List<ToDoItem>()
-                .FirstOrDefault(i => i.Title == newTitle);
+            // Update the Customer
+            repository.Update(newCustomer);
+            var updatedCustomer = repository.List<Customer>()
+                .FirstOrDefault(i => i.Name == newName);
 
-            Assert.NotNull(updatedItem);
-            Assert.NotEqual(item.Title, updatedItem.Title);
-            Assert.Equal(newItem.Id, updatedItem.Id);
+            Assert.NotNull(updatedCustomer);
+            Assert.NotEqual(Customer.Name, updatedCustomer.Name);
+            Assert.Equal(newCustomer.Id, updatedCustomer.Id);
         }
     }
 }

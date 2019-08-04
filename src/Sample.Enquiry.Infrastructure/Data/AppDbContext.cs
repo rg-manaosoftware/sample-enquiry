@@ -17,6 +17,8 @@ namespace Sample.Enquiry.Infrastructure.Data
         }
 
         public DbSet<ToDoItem> ToDoItems { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
 
         public override int SaveChanges()
         {
