@@ -1,9 +1,11 @@
-﻿using Sample.Enquiry.Core.Entities;
+﻿using System;
+using System.Linq;
+using Sample.Enquiry.Core.Entities;
 using Sample.Enquiry.Core.Interfaces;
+using Sample.Enquiry.Core.Query;
 using Sample.Enquiry.Api.ApiModels;
 using Sample.Enquiry.Api.Filters;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 
 namespace Sample.Enquiry.Api
 {
@@ -16,21 +18,44 @@ namespace Sample.Enquiry.Api
             _repository = repository;
         }
 
-        // GET: api/ToDoItems
-        [HttpGet]
-        public IActionResult List()
+        // GET: api/customers
+        [HttpGet("/api/customers")]
+        public IActionResult GetList()
         {
             var customers = _repository.List<Customer>()
                 .Select(  c => c.ToDto());
             return Ok(customers);
         }
 
-        // GET: api/ToDoItems
+        // GET: api/customer/123456
         [HttpGet("{id:int}")]
         public IActionResult GetById(ulong id)
         {
-            var customer = _repository.GetById<Customer>(id).ToDto();
-            return Ok(customer);
+            var customer = _repository.GetById<Customer>(id);
+            if( customer != null)
+            {
+                return Ok(customer.ToDto());
+            }
+            return NotFound();
+        }
+
+        // GET: api/customer?email=test@test.com
+        [HttpGet]
+        public IActionResult GetByParams( [FromQuery] QueryParameters queryParameters)
+        {
+            if( ModelState.IsValid)
+            {
+                var customer = _repository.GetByParams<Customer>(queryParameters);
+                if( customer != null)
+                {
+                    return Ok(customer.ToDto());
+                }
+                return NotFound();
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
         }
     }
 }

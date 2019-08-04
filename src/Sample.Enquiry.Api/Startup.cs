@@ -1,4 +1,6 @@
-﻿using Autofac;
+﻿using System;
+using Autofac;
+using System.Reflection;
 using Autofac.Extensions.DependencyInjection;
 using Sample.Enquiry.Core.SharedKernel;
 using Sample.Enquiry.Infrastructure.Data;
@@ -11,8 +13,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Swagger;
-using System;
-using System.Reflection;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using Sample.Enquiry.Core.Query;
 
 namespace Sample.Enquiry.Api
 {
@@ -41,11 +44,12 @@ namespace Sample.Enquiry.Api
 
             services.AddMvc()
                 .AddControllersAsServices()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                .AddFluentValidation();
+            services.AddTransient<IValidator<QueryParameters>, QueryParameterValidator>();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+                c.SwaggerDoc("v1", new Info { Title = "Sample enquiry API", Version = "v1" });
             });
 
             return BuildDependencyInjectionProvider(services);

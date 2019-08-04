@@ -1,4 +1,6 @@
-﻿using Sample.Enquiry.Core.Entities;
+﻿using System;
+using Sample.Enquiry.Core.Entities;
+using Sample.Enquiry.Core.Query;
 using Sample.Enquiry.Core.Interfaces;
 using Sample.Enquiry.Core.SharedKernel;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +26,24 @@ namespace Sample.Enquiry.Infrastructure.Data
                     .SingleOrDefault(e => e.Id == id) as T;
             }
             return _dbContext.Set<T>().SingleOrDefault(e => e.Id == id);
+        }
+
+        public T GetByParams<T>(QueryParameters queryParameters) where T : BaseEntity
+        {
+            if (typeof(T) == typeof(Customer))
+            {
+                var customers = _dbContext.Set<Customer>().Include(g => g.Transactions).AsQueryable();
+                if( queryParameters.HasIdQuery() )
+                {
+                    customers = customers.Where( c => c.Id == ulong.Parse(queryParameters.CustomerId));
+                }
+                if( queryParameters.HasEmailQuery() )
+                {
+                    customers = customers.Where( c => c.Email == queryParameters.Email);
+                }
+                return customers.FirstOrDefault() as T;
+            }
+            return null;
         }
 
         public List<T> List<T>() where T : BaseEntity
