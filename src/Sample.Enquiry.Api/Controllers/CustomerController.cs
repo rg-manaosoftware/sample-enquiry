@@ -29,8 +29,8 @@ namespace Sample.Enquiry.Api
         [HttpGet("{id:int}")]
         public IActionResult GetById(ulong id)
         {
-            var item = ToDoItemDTO.FromToDoItem(_repository.GetById<ToDoItem>(id));
-            return Ok(item);
+            var customer = _repository.GetById<Customer>(id).ToDto();
+            return Ok(customer);
         }
     }
 }
