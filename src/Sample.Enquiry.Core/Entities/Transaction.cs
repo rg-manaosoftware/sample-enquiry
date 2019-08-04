@@ -9,6 +9,7 @@ namespace Sample.Enquiry.Core.Entities
         public string Status { get; set; }
         public decimal Amount { get; set; }
         public string Currency { get; private set; }
+        public int CustomerId { get; private set; }
         public DateTime TransactionDate { get; private set; }
     }
 }
