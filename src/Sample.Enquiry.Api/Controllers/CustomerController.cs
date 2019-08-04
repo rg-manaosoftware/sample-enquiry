@@ -20,9 +20,9 @@ namespace Sample.Enquiry.Api
         [HttpGet]
         public IActionResult List()
         {
-            var items = _repository.List<ToDoItem>()
-                            .Select(ToDoItemDTO.FromToDoItem);
-            return Ok(items);
+            var customers = _repository.List<Customer>()
+                .Select(  c => c.ToDto());
+            return Ok(customers);
         }
 
         // GET: api/ToDoItems

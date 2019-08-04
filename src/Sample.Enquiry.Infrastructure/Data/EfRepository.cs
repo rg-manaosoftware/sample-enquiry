@@ -1,4 +1,5 @@
-﻿using Sample.Enquiry.Core.Interfaces;
+﻿using Sample.Enquiry.Core.Entities;
+using Sample.Enquiry.Core.Interfaces;
 using Sample.Enquiry.Core.SharedKernel;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -17,6 +18,11 @@ namespace Sample.Enquiry.Infrastructure.Data
 
         public T GetById<T>(ulong id) where T : BaseEntity
         {
+            if (typeof(T) == typeof(Customer))
+            {
+                return _dbContext.Set<Customer>().Include(g => g.Transactions)
+                    .SingleOrDefault(e => e.Id == id) as T;
+            }
             return _dbContext.Set<T>().SingleOrDefault(e => e.Id == id);
         }
 

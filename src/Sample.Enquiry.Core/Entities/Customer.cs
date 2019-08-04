@@ -26,6 +26,7 @@ namespace Sample.Enquiry.Core.Entities
         {
             var customerDto = new CustomerDto()
             {
+                Id = this.Id,
                 Name = this.Name,
                 Email = this.Email,
                 MobileNumber = this.MobileNumber
