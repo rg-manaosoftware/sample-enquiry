@@ -50,7 +50,7 @@ namespace Sample.Enquiry.Api
             {
                 c.SwaggerDoc("v1", new Info { Title = "Sample enquiry API", Version = "v1" });
             });
-
+            services.AddRouting(options => options.LowercaseUrls = true);
             return BuildDependencyInjectionProvider(services);
         }
 
