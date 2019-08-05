@@ -163,7 +163,7 @@ namespace Sample.Enquiry.Tests.Integration.Web.Api
             Assert.Equal("Customer with 1 transaction", result.Name);
             Assert.Single(result.Transactions);
             var transaction = Assert.IsType<TransactionDto>(result.Transactions.First());
-            var transactionDate = DateTime.ParseExact(transaction.TransactionDate, "dd/MM/yy hh:mm", CultureInfo.InvariantCulture);
+            var transactionDate = DateTime.ParseExact(transaction.TransactionDate, "dd/MM/yy HH:mm", CultureInfo.InvariantCulture);
             Assert.IsType<DateTime>(transactionDate);
         }
         [Fact]

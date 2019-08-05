@@ -51,7 +51,7 @@ namespace Sample.Enquiry.Tests.Core.Entities
         {
             var transactionDto = _customer.Transactions.First().ToDto();
             Assert.IsType<TransactionDto>(transactionDto);
-            var transactionDate = DateTime.ParseExact(transactionDto.TransactionDate, "dd/MM/yy hh:mm", CultureInfo.InvariantCulture);
+            var transactionDate = DateTime.ParseExact(transactionDto.TransactionDate, "dd/MM/yy HH:mm", CultureInfo.InvariantCulture);
             Assert.IsType<DateTime>(transactionDate);
             Assert.Matches("^[0-9]*(\\.[0-9]{1,2})?$", transactionDto.Amount);
         }
@@ -74,7 +74,7 @@ namespace Sample.Enquiry.Tests.Core.Entities
             Assert.Single(customerDto.Transactions);
             var transactionDto = customerDto.Transactions.First();
             Assert.IsType<TransactionDto>(transactionDto);
-            var transactionDate = DateTime.ParseExact(transactionDto.TransactionDate, "dd/MM/yy hh:mm", CultureInfo.InvariantCulture);
+            var transactionDate = DateTime.ParseExact(transactionDto.TransactionDate, "dd/MM/yy HH:mm", CultureInfo.InvariantCulture);
             Assert.IsType<DateTime>(transactionDate);
             Assert.Matches("^[0-9]*(\\.[0-9]{1,2})?$", transactionDto.Amount);
         }
