@@ -111,5 +111,43 @@ namespace Sample.Enquiry.Tests.Integration.Web.Api
             var stringResponse = await response.Content.ReadAsStringAsync();
             Assert.Matches("Invalid Email", stringResponse);
         }
+        [Fact]
+        public async Task Get_Customer_Without_Transaction_Success()
+        {
+            ulong id = 123456;
+            var response = await _client.GetAsync("/api/customer/" + id.ToString());
+            response.EnsureSuccessStatusCode();
+            var stringResponse = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<CustomerDto>(stringResponse);
+            Assert.NotNull(result);
+            Assert.Equal(id, result.Id);
+            Assert.Equal("Customer without transaction", result.Name);
+        }
+        [Fact]
+        public async Task Get_Customer_With_1_Transaction_Success()
+        {
+            ulong id = 234567;
+            var response = await _client.GetAsync("/api/customer/" + id.ToString());
+            response.EnsureSuccessStatusCode();
+            var stringResponse = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<CustomerDto>(stringResponse);
+            Assert.NotNull(result);
+            Assert.Equal(id, result.Id);
+            Assert.Equal("Customer with 1 transaction", result.Name);
+            Assert.Single(result.Transactions);
+        }
+        [Fact]
+        public async Task Get_Customer_With_2_Transaction_Success()
+        {
+            ulong id = 345678;
+            var response = await _client.GetAsync("/api/customer/" + id.ToString());
+            response.EnsureSuccessStatusCode();
+            var stringResponse = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<CustomerDto>(stringResponse);
+            Assert.NotNull(result);
+            Assert.Equal(id, result.Id);
+            Assert.Equal("Customer with 2 transactions", result.Name);
+            Assert.Equal(2, result.Transactions.Count);
+        }
     }
 }
