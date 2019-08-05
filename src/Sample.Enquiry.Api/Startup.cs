@@ -44,7 +44,7 @@ namespace Sample.Enquiry.Api
 
             services.AddMvc()
                 .AddControllersAsServices()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddFluentValidation();
             services.AddTransient<IValidator<QueryParameters>, QueryParameterValidator>();
             services.AddSwaggerGen(c =>

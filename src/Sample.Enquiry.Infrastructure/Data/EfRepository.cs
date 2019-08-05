@@ -6,6 +6,7 @@ using Sample.Enquiry.Core.SharedKernel;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace Sample.Enquiry.Infrastructure.Data
 {
