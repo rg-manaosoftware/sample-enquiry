@@ -11,16 +11,16 @@ namespace Sample.Enquiry.Tests.Integration.Data
         {
             // add an item
             var repository = GetRepository();
-            var initialTitle = Guid.NewGuid().ToString();
-            var item = new ToDoItemBuilder().Title(initialTitle).Build();
-            repository.Add(item);
+            var initialName = Guid.NewGuid().ToString();
+            var customer = new CustomerBuilder().Name(initialName).Build();
+            repository.Add(customer);
 
             // delete the item
-            repository.Delete(item);
+            repository.Delete(customer);
 
             // verify it's no longer there
-            Assert.DoesNotContain(repository.List<ToDoItem>(),
-                i => i.Title == initialTitle);
+            Assert.DoesNotContain(repository.List<Customer>(),
+                i => i.Name == initialName);
         }
     }
 }

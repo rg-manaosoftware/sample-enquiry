@@ -8,17 +8,17 @@ namespace Sample.Enquiry.Tests.Integration.Data
     {
 
         [Fact]
-        public void AddsItemAndSetsId()
+        public void AddCustomerAndSetsId()
         {
             var repository = GetRepository();
-            var item = new ToDoItemBuilder().Build();
+            var customer = new CustomerBuilder().Build();
 
-            repository.Add(item);
+            repository.Add(customer);
 
-            var newItem = repository.List<ToDoItem>().FirstOrDefault();
+            var newCustomer = repository.List<Customer>().FirstOrDefault();
 
-            Assert.Equal(item, newItem);
-            Assert.True(newItem?.Id > 0);
+            Assert.Equal(customer, newCustomer);
+            Assert.True(newCustomer?.Id > 0);
         }
     }
 }
