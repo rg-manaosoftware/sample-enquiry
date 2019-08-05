@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Sample.Enquiry.Core;
 using Sample.Enquiry.Core.Entities;
 using Sample.Enquiry.Core.Interfaces;
 using Sample.Enquiry.Core.Query;
@@ -53,6 +54,13 @@ namespace Sample.Enquiry.Api
             {
                 return BadRequest(ModelState);
             }
+        }
+        // GET: api/customer?email=test@test.com
+        [HttpGet("populate"]
+        public IActionResult PopulateSampleData()
+        {
+            int addedCount = DatabasePopulator.PopulateDatabase(_repository);
+            return Ok(addedCount);
         }
     }
 }
