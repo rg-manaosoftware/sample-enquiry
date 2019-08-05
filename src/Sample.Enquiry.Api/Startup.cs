@@ -51,6 +51,12 @@ namespace Sample.Enquiry.Api
                 c.SwaggerDoc("v1", new Info { Title = "Sample enquiry API", Version = "v1" });
             });
             services.AddRouting(options => options.LowercaseUrls = true);
+            services.AddLogging(loggingBuilder =>
+            {
+                loggingBuilder.AddConfiguration(Configuration.GetSection("Logging"));
+                loggingBuilder.AddConsole();
+                loggingBuilder.AddDebug();
+            });
             return BuildDependencyInjectionProvider(services);
         }
 
@@ -73,9 +79,6 @@ namespace Sample.Enquiry.Api
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
