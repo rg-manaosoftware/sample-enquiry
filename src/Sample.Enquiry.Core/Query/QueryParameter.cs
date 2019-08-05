@@ -1,6 +1,5 @@
-using System;
-using FluentValidation;
 
+using FluentValidation;
 namespace Sample.Enquiry.Core.Query
 {
     public class QueryParameters
