@@ -62,6 +62,21 @@ namespace Sample.Enquiry.Tests.Core.Entities
             var customerDto = _customer.ToDto();
             Assert.IsType<CustomerDto>(customerDto);
             Assert.Single(customerDto.Transactions);
+            var transactionDto = customerDto.Transactions.First();
+            Assert.IsType<CustomerDto>(customerDto);
+
+        }
+        [Fact]
+        public void CustomerToDto_Transaction_Is_Correct_format()
+        {
+            var customerDto = _customer.ToDto();
+            Assert.IsType<CustomerDto>(customerDto);
+            Assert.Single(customerDto.Transactions);
+            var transactionDto = customerDto.Transactions.First();
+            Assert.IsType<TransactionDto>(transactionDto);
+            var transactionDate = DateTime.ParseExact(transactionDto.TransactionDate, "dd/MM/yy hh:mm", CultureInfo.InvariantCulture);
+            Assert.IsType<DateTime>(transactionDate);
+            Assert.Matches("^[0-9]*(\\.[0-9]{1,2})?$", transactionDto.Amount);
         }
     }
 }
