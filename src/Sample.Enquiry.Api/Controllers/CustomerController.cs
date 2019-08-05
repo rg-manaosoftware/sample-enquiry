@@ -1,10 +1,7 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Sample.Enquiry.Core.Entities;
 using Sample.Enquiry.Core.Interfaces;
 using Sample.Enquiry.Core.Query;
-using Sample.Enquiry.Api.ApiModels;
-using Sample.Enquiry.Api.Filters;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Sample.Enquiry.Api

@@ -1,32 +1,66 @@
-﻿using Sample.Enquiry.Core.Entities;
-using Sample.Enquiry.Core.Interfaces;
+﻿using System;
 using System.Linq;
+using Sample.Enquiry.Core.Entities;
+using Sample.Enquiry.Core.Interfaces;
 
 namespace Sample.Enquiry.Core
 {
     public static class DatabasePopulator
     {
-        public static int PopulateDatabase(IRepository todoRepository)
+        public static int PopulateDatabase(IRepository repository)
         {
-            if (todoRepository.List<ToDoItem>().Any()) return 0;
+            if(repository.List<Customer>().Any()) return 0;
 
-            todoRepository.Add(new ToDoItem
-            {
-                Title = "Get Sample Working",
-                Description = "Try to get the sample to build."
-            });
-            todoRepository.Add(new ToDoItem
-            {
-                Title = "Review Solution",
-                Description = "Review the different projects in the solution and how they relate to one another."
-            });
-            todoRepository.Add(new ToDoItem
-            {
-                Title = "Run and Review Tests",
-                Description = "Make sure all the tests run and review what they are doing."
-            });
 
-            return todoRepository.List<ToDoItem>().Count;
+            repository.Add(new Customer()
+            {
+                Id = 123456,
+                Name = "Customer without transaction",
+                Email = "user1@domain.com",
+                MobileNumber = 1234567890
+            });
+            repository.Add(new Customer()
+            {
+                Id = 234567,
+                Name = "Customer with 1 transaction",
+                Email = "user2@domain.com",
+                MobileNumber = 2345678901
+            });
+            repository.Add(new Customer()
+            {
+                Id = 345678,
+                Name = "Customer with 2 transactions",
+                Email = "user3@domain.com",
+                MobileNumber = 3456789012
+            });
+            repository.Add(new Transaction()
+            {
+                Id = 1,
+                CustomerId = 234567,
+                Amount = 20,
+                Status = "Success",
+                Currency = "USD",
+                TransactionDate = DateTime.Now
+            });
+            repository.Add(new Transaction()
+            {
+                Id = 2,
+                CustomerId = 345678,
+                Amount = 12.34M,
+                Status = "Success",
+                Currency = "THB",
+                TransactionDate = DateTime.Now
+            });
+            repository.Add(new Transaction()
+            {
+                Id = 3,
+                CustomerId = 345678,
+                Amount = 50.0M,
+                Status = "Success",
+                Currency = "USD",
+                TransactionDate = DateTime.Now.AddMonths(-1)
+            });
+            return repository.List<Customer>().Count;
         }
     }
 }
