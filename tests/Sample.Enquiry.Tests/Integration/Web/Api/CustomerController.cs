@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Globalization;
 
 using System.Threading.Tasks;
 using Xunit;
@@ -148,6 +149,39 @@ namespace Sample.Enquiry.Tests.Integration.Web.Api
             Assert.Equal(id, result.Id);
             Assert.Equal("Customer with 2 transactions", result.Name);
             Assert.Equal(2, result.Transactions.Count);
+        }
+        [Fact]
+        public async Task GetCorrect_Transaction_Date_Format()
+        {
+            ulong id = 234567;
+            var response = await _client.GetAsync("/api/customer/" + id.ToString());
+            response.EnsureSuccessStatusCode();
+            var stringResponse = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<CustomerDto>(stringResponse);
+            Assert.NotNull(result);
+            Assert.Equal(id, result.Id);
+            Assert.Equal("Customer with 1 transaction", result.Name);
+            Assert.Single(result.Transactions);
+            var transaction = Assert.IsType<TransactionDto>(result.Transactions.First());
+            var transactionDate = DateTime.ParseExact(transaction.TransactionDate, "dd/MM/yy hh:mm", CultureInfo.InvariantCulture);
+            Assert.IsType<DateTime>(transactionDate);
+        }
+        [Fact]
+        public async Task GetCorrect_Transaction_Amount_Format()
+        {
+            ulong id = 234567;
+            var response = await _client.GetAsync("/api/customer/" + id.ToString());
+            response.EnsureSuccessStatusCode();
+            var stringResponse = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<CustomerDto>(stringResponse);
+            Assert.NotNull(result);
+            Assert.Equal(id, result.Id);
+            Assert.Equal("Customer with 1 transaction", result.Name);
+            Assert.Single(result.Transactions);
+            var transaction = Assert.IsType<TransactionDto>(result.Transactions.First());
+            var transactionDate = DateTime.ParseExact(transaction.TransactionDate, "dd/MM/yy hh:mm", CultureInfo.InvariantCulture);
+            Assert.IsType<DateTime>(transactionDate);
+            Assert.Matches("^[0-9]*(\\.[0-9]{1,2})?$", transaction.Amount);
         }
     }
 }

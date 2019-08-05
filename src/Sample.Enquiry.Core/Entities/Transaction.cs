@@ -17,10 +17,10 @@ namespace Sample.Enquiry.Core.Entities
             {
                 Id = this.Id,
                 Status = this.Status,
-                Amount = this.Amount,
+                Amount = this.Amount.ToString("#,##0.00"),
                 Currency = this.Currency,
                 CustomerId = this.CustomerId,
-                TransactionDate = this.TransactionDate
+                TransactionDate = this.TransactionDate.ToString("dd/MM/yy HH:mm")
             };
             return transactionDto;
         }
