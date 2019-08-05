@@ -1,12 +1,12 @@
 ﻿using System;
-using Sample.Enquiry.Core.Entities;
 using Sample.Enquiry.Core.Dtos;
 using Sample.Enquiry.Api;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
-using Microsoft.AspNetCore.Mvc;
+
 using System.Threading.Tasks;
 using Xunit;
 
@@ -69,6 +69,47 @@ namespace Sample.Enquiry.Tests.Integration.Web.Api
             Assert.NotNull(result);
             Assert.Equal(email, result.Email);
             Assert.Equal("Customer with 1 transaction", result.Name);
+        }
+        [Fact]
+        public async Task Get_Customer_By_Id_Params_Notfound()
+        {
+            ulong id = 123456789;
+            var response = await _client.GetAsync("/api/customer?CustomerId=" + id.ToString());
+            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+        }
+        [Fact]
+        public async Task Get_Customer_By_EMAIL_Params_Notfound()
+        {
+            string email = "notfound@domain.com";
+            var response = await _client.GetAsync("/api/customer?Email=" + email);
+            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+        }
+
+        [Fact]
+        public async Task Get_Customer_NO_Params_BadRequest()
+        {
+            var response = await _client.GetAsync("/api/customer");
+            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+            var stringResponse = await response.Content.ReadAsStringAsync();
+            Assert.Matches("No inquiry criteria", stringResponse);
+        }
+        [Fact]
+        public async Task Get_Customer_Invalid_Id_Params_BadRequest()
+        {
+            ulong id = 1234567890123;
+            var response = await _client.GetAsync("/api/customer?CustomerId=" + id.ToString());
+            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+            var stringResponse = await response.Content.ReadAsStringAsync();
+            Assert.Matches("Invalid Customer Id", stringResponse);
+        }
+        [Fact]
+        public async Task Get_Customer_Invalid_Email_Params_BadRequest()
+        {
+            string email = "badrequest";
+            var response = await _client.GetAsync("/api/customer?Email=" + email);
+            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+            var stringResponse = await response.Content.ReadAsStringAsync();
+            Assert.Matches("Invalid Email", stringResponse);
         }
     }
 }
