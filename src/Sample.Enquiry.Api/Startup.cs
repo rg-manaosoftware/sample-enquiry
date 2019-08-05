@@ -39,8 +39,7 @@ namespace Sample.Enquiry.Api
             // TODO: Add DbContext and IOC
             string dbName = Guid.NewGuid().ToString();
             services.AddDbContext<AppDbContext>(options =>
-                options.UseInMemoryDatabase(dbName));
-                //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("SampleDBContext")));
 
             services.AddMvc()
                 .AddControllersAsServices()

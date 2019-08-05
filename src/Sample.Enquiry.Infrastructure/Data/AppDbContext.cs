@@ -39,7 +39,6 @@ namespace Sample.Enquiry.Infrastructure.Data
                     _dispatcher.Dispatch(domainEvent);
                 }
             }
-
             return result;
         }
     }
