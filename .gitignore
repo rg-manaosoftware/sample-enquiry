@@ -253,3 +253,4 @@ paket-files/
 
 # ds file from os x
 .DS_Store
+src/Sample.Enquiry.Infrastructure/Migrations/

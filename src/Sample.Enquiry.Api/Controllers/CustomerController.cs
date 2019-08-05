@@ -56,7 +56,7 @@ namespace Sample.Enquiry.Api
             }
         }
         // GET: api/customer?email=test@test.com
-        [HttpGet("populate"]
+        [HttpGet("populate")]
         public IActionResult PopulateSampleData()
         {
             int addedCount = DatabasePopulator.PopulateDatabase(_repository);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using Sample.Enquiry.Core.SharedKernel;
 using Sample.Enquiry.Core.Dtos;
 
@@ -7,6 +8,7 @@ namespace Sample.Enquiry.Core.Entities
     public class Transaction : BaseEntity
     {
         public string Status { get; set; }
+        [Column(TypeName = "decimal(10,2)")]
         public decimal Amount { get; set; }
         public string Currency { get; set; }
         public ulong CustomerId { get; set; }
