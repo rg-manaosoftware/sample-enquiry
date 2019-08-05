@@ -13,11 +13,11 @@ using Xunit;
 
 namespace Sample.Enquiry.Tests.Integration.Web.Api
 {
-    public class CustomerController : IClassFixture<CustomWebApplicationFactory<Startup>>
+    public class CustomerControllerTest : IClassFixture<CustomWebApplicationFactory<Startup>>
     {
         private readonly HttpClient _client;
 
-        public CustomerController(CustomWebApplicationFactory<Startup> factory)
+        public CustomerControllerTest(CustomWebApplicationFactory<Startup> factory)
         {
             _client = factory.CreateClient();
         }
@@ -179,8 +179,6 @@ namespace Sample.Enquiry.Tests.Integration.Web.Api
             Assert.Equal("Customer with 1 transaction", result.Name);
             Assert.Single(result.Transactions);
             var transaction = Assert.IsType<TransactionDto>(result.Transactions.First());
-            var transactionDate = DateTime.ParseExact(transaction.TransactionDate, "dd/MM/yy hh:mm", CultureInfo.InvariantCulture);
-            Assert.IsType<DateTime>(transactionDate);
             Assert.Matches("^[0-9]*(\\.[0-9]{1,2})?$", transaction.Amount);
         }
     }

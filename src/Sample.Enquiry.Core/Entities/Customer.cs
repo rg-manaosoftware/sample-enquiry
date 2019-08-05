@@ -14,8 +14,18 @@ namespace Sample.Enquiry.Core.Entities
         public string Name { get; set; }
         public string Email { get; set; }
         public ulong MobileNumber { get; set; }
-        public IEnumerable<Transaction> Transactions => new Collection<Transaction>(_transactions);
 
+        public List<Transaction> Transactions
+        {
+            get
+            {
+                return _transactions;
+            }
+            set
+            {
+                _transactions = value;
+            }
+        }
         public void AddEntry(Transaction transaction)
         {
             _transactions.Add(transaction);
