@@ -1,7 +1,7 @@
 # SampleEnquiry
 
 An assingment about software architech technical  
-DDD architech base on [https://github.com/GregTrevellick/Sample.Enquiry](https://github.com/GregTrevellick/Sample.Enquiry)
+DDD architech base on [https://github.com/GregTrevellick/CleanArchitecture](https://github.com/GregTrevellick/CleanArchitecture)
 
 
 # Software requirement
